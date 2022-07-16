@@ -10,7 +10,7 @@ import { SocialAuthService, SocialAuthServiceConfig } from './socialauth.service
 import { GoogleSigninButtonDirective } from './directives/google-signin-button.directive';
 
 /**
- * The main module of angularx-social-login library.
+ * The main module of ng-social-login library.
  */
 @NgModule({
   declarations: [GoogleSigninButtonDirective],

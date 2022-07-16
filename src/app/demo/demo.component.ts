@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonDirective, MicrosoftLoginProvider, SocialAuthService, SocialUser, VKLoginProvider } from 'projects/lib/src/public-api';
+import { AmazonLoginProvider, FacebookLoginProvider, gLabel, GoogleLoginProvider, GoogleSigninButtonDirective, GoogleSigninButtonOptions, gShape, gSize, gTheme, gType, MicrosoftLoginProvider, SocialAuthService, SocialUser, VKLoginProvider } from 'projects/lib/src/public-api';
 
 @Component({
   selector: 'lib-app-demo',
@@ -9,12 +9,19 @@ import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, Google
 export class DemoComponent implements OnInit {
   user: SocialUser | undefined;
   GoogleLoginProvider = GoogleLoginProvider;
+  gOptions : GoogleSigninButtonOptions = {
+    Label: gLabel.SigninWith,
+    Shape: gShape.Rectangular,
+    Size: gSize.Large,
+    Theme: gTheme.FilledBlue,
+    Type: gType.Standard,
+    Width: 40
+  };
 
   constructor(private readonly _authService: SocialAuthService) {}
 
   ngOnInit() {
     this._authService.authState.subscribe((user) => {
-      console.log('this.user: ',this.user);
       this.user = user;
     });
   }

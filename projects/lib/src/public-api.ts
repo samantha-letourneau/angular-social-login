@@ -15,4 +15,6 @@ export { FacebookLoginProvider } from './providers/facebook-login-provider';
 export { AmazonLoginProvider } from './providers/amazon-login-provider';
 export { VKLoginProvider } from './providers/vk-login-provider';
 export { MicrosoftLoginProvider } from './providers/microsoft-login-provider';
+export { GoogleSigninButtonOptions, gType, gShape, gSize, gTheme, gLabel } from './google-rendering-option';
 export { GoogleSigninButtonDirective } from './directives/google-signin-button.directive';
+
