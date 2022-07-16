@@ -1,13 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { GoogleLoginProvider, SocialAuthService } from 'lib';
-import { SocialUser } from 'lib';
-import {
-  FacebookLoginProvider,
-  AmazonLoginProvider,
-  VKLoginProvider,
-  MicrosoftLoginProvider,
-} from 'lib';
+import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonDirective, MicrosoftLoginProvider, SocialAuthService, SocialUser, VKLoginProvider } from 'projects/lib/src/public-api';
 
 @Component({
   selector: 'lib-app-demo',
@@ -22,6 +14,7 @@ export class DemoComponent implements OnInit {
 
   ngOnInit() {
     this._authService.authState.subscribe((user) => {
+      console.log('this.user: ',this.user);
       this.user = user;
     });
   }

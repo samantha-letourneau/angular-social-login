@@ -1,34 +1,34 @@
 export enum Type {
-    Standard = 1,
-    Icon = 2
+    Standard = "standard",
+    Icon = "icon"
 }
 
 export enum Shape {
     /** For standard shape type */
-    Rectangular = 1,
+    Rectangular = "rectangular",
     /** For standard shape type */
-    Pill = 2,
+    Pill = "pill",
     /** For icon shape type */
-    Square = 3,
+    Square = "square",
     /** For icon shape type */
-    Circle = 4
+    Circle = "circle"
 }
 
 export enum Size {
-    Small = 1,
-    Medium = 2,
-    Large = 3
+    Small = "small",
+    Medium = "medium",
+    Large = "large"
 }
 
 export enum Theme {
-    Outline = 1,
-    FilledBlue = 2,
-    FilledBlack = 3
+    Outline = "outline",
+    FilledBlue = "filled_blue",
+    FilledBlack = "filled_black"
 }
 
 export enum Label {
-    SigninWith = 1,
-    SignupWith = 2,
-    ContinueWith = 3,
-    Signin = 4
+    SigninWith = "signin_with",
+    SignupWith = "signup_with",
+    ContinueWith = "continue_with",
+    Signin = "signin"
 }

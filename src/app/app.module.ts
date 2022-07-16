@@ -1,29 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DemoComponent } from './demo/demo.component';
-
-import {
-  GoogleLoginProvider,
-  SocialLoginModule,
-  FacebookLoginProvider,
-  AmazonLoginProvider,
-  VKLoginProvider,
-  MicrosoftLoginProvider,
-  SocialAuthServiceConfig,
-} from 'lib';
+import { SocialLoginModule } from 'projects/lib/src/sociallogin.module';
+import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonDirective, MicrosoftLoginProvider, SocialAuthServiceConfig, VKLoginProvider } from 'projects/lib/src/public-api';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, DemoComponent],
-  imports: [BrowserModule, FormsModule, SocialLoginModule],
+  imports: [BrowserModule, FormsModule, SocialLoginModule, AppRoutingModule],
   providers: [
+    GoogleSigninButtonDirective,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: true,
+        autoLogin: false,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
@@ -56,5 +50,6 @@ import {
     },
   ],
   bootstrap: [AppComponent],
+  schemas: [ NO_ERRORS_SCHEMA ]
 })
 export class AppModule {}
