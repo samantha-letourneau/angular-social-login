@@ -1,12 +1,12 @@
 {
-  "name": "ng-social-login",
+  "name": "@performweb/ng-social-login",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build-lib": "ng build lib",
     "build-lib-prod": "ng build lib --configuration production",
-    "deploy": "cd dist/lib && npm publish",
+    "deploy": "cd dist/lib && npm publish --access public",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

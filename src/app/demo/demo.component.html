@@ -3,19 +3,21 @@
     <h6 class="card-header">Social Login Demo </h6>
     <div class="card-block">
       <h4 class="card-title">Not signed in</h4>
-      <p class="card-text">Sign in with</p>
+      <p class="card-text">Sign in with hey!</p>
     </div>
     <div class="card-block d-flex justify-content-center">
-      <div google-signin-button 
-        [options]="gOptions" class="mx-1"></div>
-      
-      <button
+      <div google-signin-button [options]="gOptions" class="mx-1"></div>
+      <div facebook-signin-button [options]="fbOptions" class="mx-1"></div>
+      <div microsoft-signin-button [options]="msOptions" class="mx-1" (click)="signInWithMicrosoft()"></div>
+      <!-- <button
         class="btn btn-social-icon btn-facebook mx-1"
         (click)="signInWithFB()"
       >
         <span class="fab fa-facebook"></span>
-      </button>
-      <button
+      </button> -->
+      
+
+      <!-- <button
         class="btn btn-social-icon btn-amazon mx-1"
         (click)="signInWithAmazon()"
       >
@@ -32,7 +34,7 @@
         (click)="signInWithMicrosoft()"
       >
         <span class="fab fa-microsoft"></span>
-      </button>
+      </button> -->
     </div>
   </div>
   <div *ngIf="user" class="card text-center">

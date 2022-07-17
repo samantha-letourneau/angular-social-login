@@ -1,5 +1,9 @@
 # Angular Social Login
 
+@performweb/ng-social-login is forked from @abacritt/angularx-social-login and this doc is not updated. 
+
+Meanwhile, I make this librairy better to get Facebook, Google and Microsoft works with directives and options to get many login buttons styles.
+
 > Use [Discussions](https://github.com/abacritt/angularx-social-login/discussions) for questions.
 
 Social login and authentication module for Angular 13 & 14. Supports authentication with **Google**, **Facebook**, **Amazon**, **Microsoft**, and **VK** out of the box. Can be extended to other 

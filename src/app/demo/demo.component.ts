@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AmazonLoginProvider, FacebookLoginProvider, gLabel, GoogleLoginProvider, GoogleSigninButtonDirective, GoogleSigninButtonOptions, gShape, gSize, gTheme, gType, MicrosoftLoginProvider, SocialAuthService, SocialUser, VKLoginProvider } from 'projects/lib/src/public-api';
+import { FacebookSigninButtonOptions, 
+  fbLabel, fbLayout, AmazonLoginProvider, 
+  FacebookLoginProvider, gLabel, GoogleLoginProvider, 
+  GoogleSigninButtonOptions, gShape, ButtonSize, gTheme, gType, 
+  MicrosoftLoginProvider, SocialAuthService, SocialUser, VKLoginProvider, MicrosoftSigninButtonOptions, msSvgImage } from 'projects/lib/src/public-api';
 
 @Component({
   selector: 'lib-app-demo',
@@ -12,10 +16,23 @@ export class DemoComponent implements OnInit {
   gOptions : GoogleSigninButtonOptions = {
     Label: gLabel.SigninWith,
     Shape: gShape.Rectangular,
-    Size: gSize.Large,
+    Size: ButtonSize.Large,
     Theme: gTheme.FilledBlue,
     Type: gType.Standard,
     Width: 40
+  };
+
+  fbOptions : FacebookSigninButtonOptions = {
+    Layout: fbLayout.Default,
+    Label: fbLabel.LoginWith,
+    Size: ButtonSize.Large,
+    ActivateLogout: false,
+    IncludeProfileNameIfAny: false,
+    Width: 40
+  };
+
+  msOptions : MicrosoftSigninButtonOptions = {
+    ButtonImage: msSvgImage.Light,
   };
 
   constructor(private readonly _authService: SocialAuthService) {}
@@ -30,16 +47,16 @@ export class DemoComponent implements OnInit {
     this._authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
-  signInWithAmazon(): void {
-    this._authService.signIn(AmazonLoginProvider.PROVIDER_ID);
-  }
-
   signInWithVK(): void {
     this._authService.signIn(VKLoginProvider.PROVIDER_ID);
   }
 
   signInWithMicrosoft(): void {
     this._authService.signIn(MicrosoftLoginProvider.PROVIDER_ID);
+  }
+
+  signInWithAmazon(): void {
+    this._authService.signIn(AmazonLoginProvider.PROVIDER_ID);
   }
 
   signOut(): void {

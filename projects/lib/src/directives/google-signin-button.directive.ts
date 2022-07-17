@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input } from '@angular/core';
 import { take } from 'rxjs';
 import { SocialAuthService } from '../socialauth.service';
-import { GoogleSigninButtonOptions } from '../google-rendering-option';
+import { GoogleSigninButtonOptions } from '../options';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
