@@ -3,7 +3,7 @@ import { FacebookSigninButtonOptions,
   fbLabel, fbLayout, AmazonLoginProvider, 
   FacebookLoginProvider, gLabel, GoogleLoginProvider, 
   GoogleSigninButtonOptions, gShape, ButtonSize, gTheme, gType, 
-  MicrosoftLoginProvider, SocialAuthService, SocialUser, VKLoginProvider, MicrosoftSigninButtonOptions, msSvgImage } from 'projects/lib/src/public-api';
+  MicrosoftLoginProvider, SocialAuthService, SocialUser, VKLoginProvider, MicrosoftSigninButtonOptions, msShape } from 'projects/lib/src/public-api';
 
 @Component({
   selector: 'lib-app-demo',
@@ -19,7 +19,6 @@ export class DemoComponent implements OnInit {
     Size: ButtonSize.Large,
     Theme: gTheme.FilledBlue,
     Type: gType.Standard,
-    Width: 40
   };
 
   fbOptions : FacebookSigninButtonOptions = {
@@ -28,11 +27,11 @@ export class DemoComponent implements OnInit {
     Size: ButtonSize.Large,
     ActivateLogout: false,
     IncludeProfileNameIfAny: false,
-    Width: 40
   };
 
   msOptions : MicrosoftSigninButtonOptions = {
-    ButtonImage: msSvgImage.Light,
+    Label: "Sign in with Microsoft",
+    Shape: msShape.Pill,
   };
 
   constructor(private readonly _authService: SocialAuthService) {}

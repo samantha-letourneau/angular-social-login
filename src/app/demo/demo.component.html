@@ -6,9 +6,9 @@
       <p class="card-text">Sign in with hey!</p>
     </div>
     <div class="card-block d-flex justify-content-center">
+      <div microsoft-signin-button [options]="msOptions"></div>
       <div google-signin-button [options]="gOptions" class="mx-1"></div>
       <div facebook-signin-button [options]="fbOptions" class="mx-1"></div>
-      <div microsoft-signin-button [options]="msOptions" class="mx-1" (click)="signInWithMicrosoft()"></div>
       <!-- <button
         class="btn btn-social-icon btn-facebook mx-1"
         (click)="signInWithFB()"
