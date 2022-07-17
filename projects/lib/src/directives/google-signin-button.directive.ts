@@ -15,6 +15,9 @@ export class GoogleSigninButtonDirective {
     socialAuthService: SocialAuthService
   ) {
     socialAuthService.initState.pipe(take(1)).subscribe(() => {
+      if(!this.options)
+        this.options = new GoogleSigninButtonOptions();
+
       if (!this.options?.Type)
         this.options.Type = gType.Standard;
 

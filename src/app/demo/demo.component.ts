@@ -30,7 +30,7 @@ export class DemoComponent implements OnInit {
   };
 
   msOptions : MicrosoftSigninButtonOptions = {
-    Label: "Sign in with Microsoft",
+    Label: "S0ign in with Microsoft",
     Shape: msShape.Pill,
   };
 

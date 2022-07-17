@@ -14,6 +14,9 @@ export class FacebookSigninButtonDirective implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (!this.options)
+      this.options = new FacebookSigninButtonOptions();
+
     if (!this.options?.Label)
       this.options.Label = fbLabel.LoginWith;
 
