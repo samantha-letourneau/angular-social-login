@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
       provide: 'SocialAuthServiceConfig',
       useValue: {
         autoLogin: false,
+        iso_8859_1: true,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
