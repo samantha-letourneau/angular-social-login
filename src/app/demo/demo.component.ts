@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FacebookSigninButtonOptions, 
-  fbLabel, fbLayout, AmazonLoginProvider, 
+import {  
+  AmazonLoginProvider, 
   FacebookLoginProvider, gLabel, GoogleLoginProvider, 
   GoogleSigninButtonOptions, gShape, ButtonSize, gTheme, gType, 
-  MicrosoftLoginProvider, SocialAuthService, SocialUser, VKLoginProvider, MicrosoftSigninButtonOptions, msShape } from 'projects/lib/src/public-api';
+  MicrosoftLoginProvider, SocialAuthService, SocialUser, VKLoginProvider, SocialSigninButtonOptions, Shape, Provider } from 'projects/lib/src/public-api';
 
 @Component({
   selector: 'lib-app-demo',
@@ -15,23 +15,22 @@ export class DemoComponent implements OnInit {
   GoogleLoginProvider = GoogleLoginProvider;
   gOptions : GoogleSigninButtonOptions = {
     Label: gLabel.SigninWith,
-    Shape: gShape.Rectangular,
+    Shape: gShape.Pill,
     Size: ButtonSize.Large,
     Theme: gTheme.FilledBlue,
     Type: gType.Standard,
   };
 
-  fbOptions : FacebookSigninButtonOptions = {
-    Layout: fbLayout.Default,
-    Label: fbLabel.LoginWith,
-    Size: ButtonSize.Large,
-    ActivateLogout: false,
-    IncludeProfileNameIfAny: false,
+  fbOptions : SocialSigninButtonOptions = {
+    Label: "Sign in with Facebook",
+    Shape: Shape.Pill,
+    Provider: Provider.Facebook
   };
 
-  msOptions : MicrosoftSigninButtonOptions = {
+  msOptions : SocialSigninButtonOptions = {
     Label: "Sign in with Microsoft",
-    Shape: msShape.Pill,
+    Shape: Shape.Pill,
+    Provider: Provider.Microsoft
   };
 
   constructor(private readonly _authService: SocialAuthService) {}

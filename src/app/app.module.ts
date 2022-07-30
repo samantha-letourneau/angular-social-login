@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DemoComponent } from './demo/demo.component';
 import { SocialLoginModule } from 'projects/lib/src/sociallogin.module';
-import { AmazonLoginProvider, FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonDirective, MicrosoftLoginProvider, SocialAuthServiceConfig, VKLoginProvider } from 'projects/lib/src/public-api';
+import { FacebookLoginProvider, GoogleLoginProvider, MicrosoftLoginProvider, SocialAuthServiceConfig, VKLoginProvider } from 'projects/lib/src/public-api';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -17,7 +17,6 @@ import { AppRoutingModule } from './app-routing.module';
       provide: 'SocialAuthServiceConfig',
       useValue: {
         autoLogin: false,
-        iso_8859_1: true,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
@@ -27,7 +26,13 @@ import { AppRoutingModule } from './app-routing.module';
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('1057255155178956'),
+            provider: new FacebookLoginProvider('1057255155178956', ''),
+          },
+          {
+            id: MicrosoftLoginProvider.PROVIDER_ID,
+            provider: new MicrosoftLoginProvider(
+              'cf6e5c71-b50e-401e-a22d-edb5fb16d914'
+            )
           },
           // {
           //   id: AmazonLoginProvider.PROVIDER_ID,
@@ -39,12 +44,6 @@ import { AppRoutingModule } from './app-routing.module';
           //   id: VKLoginProvider.PROVIDER_ID,
           //   provider: new VKLoginProvider('7624815'),
           // },
-          {
-            id: MicrosoftLoginProvider.PROVIDER_ID,
-            provider: new MicrosoftLoginProvider(
-              'cf6e5c71-b50e-401e-a22d-edb5fb16d914'
-            ),
-          },
         ],
       } as SocialAuthServiceConfig,
     },

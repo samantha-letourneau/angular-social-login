@@ -8,21 +8,22 @@ import { CommonModule } from '@angular/common';
 
 import { SocialAuthService, SocialAuthServiceConfig } from './socialauth.service';
 import { GoogleSigninButtonDirective } from './directives/google-signin-button.directive';
-import { FacebookSigninButtonDirective } from './directives/facebook-signin-button.directive';
-import { MicrosoftSigninButtonComponent } from './microsoft-signin-button/microsoft-signin-button.component';
+import { SocialSigninButtonComponent } from './social-signin-button/social-signin-button.component';
+import { HttpClientModule } from '@angular/common/http';
 
 /**
  * The main module of ng-social-login library.
  */
 @NgModule({
-  declarations: [MicrosoftSigninButtonComponent, GoogleSigninButtonDirective, FacebookSigninButtonDirective],
+  declarations: [SocialSigninButtonComponent, GoogleSigninButtonDirective],
   imports: [
     CommonModule,
+    HttpClientModule
   ],
   providers: [
     SocialAuthService
   ],
-  exports: [MicrosoftSigninButtonComponent, GoogleSigninButtonDirective, FacebookSigninButtonDirective]
+  exports: [SocialSigninButtonComponent, GoogleSigninButtonDirective]
 })
 export class SocialLoginModule {
   public static initialize(config: SocialAuthServiceConfig): ModuleWithProviders<SocialLoginModule> {

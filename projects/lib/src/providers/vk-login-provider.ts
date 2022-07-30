@@ -106,7 +106,7 @@ export class VKLoginProvider extends BaseLoginProvider {
     user.id = response.id;
     user.name = `${response.first_name} ${response.last_name}`;
     user.photoUrl = response.photo_max;
-    user.authToken = response.token;
+    user.accessToken = response.token;
     return user;
   }
 }

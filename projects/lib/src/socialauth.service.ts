@@ -8,7 +8,6 @@ import { GoogleLoginProvider } from './providers/google-login-provider';
  */
 export interface SocialAuthServiceConfig {
   autoLogin?: boolean;
-  iso_8859_1?: boolean;
   providers: { id: string; provider: LoginProvider | Type<LoginProvider> }[];
   onError?: (error: any) => any;
 }
@@ -34,7 +33,6 @@ export class SocialAuthService {
 
   private providers: Map<string, LoginProvider> = new Map();
   private autoLogin = false;
-  private iso_8859_1 = false;
   private _user: SocialUser | null = null;
   private _authState: ReplaySubject<SocialUser | null> = new ReplaySubject(1);
 
@@ -72,7 +70,6 @@ export class SocialAuthService {
 
   private initialize(config: SocialAuthServiceConfig) {
     this.autoLogin = config.autoLogin !== undefined ? config.autoLogin : false;
-    this.iso_8859_1 = config.iso_8859_1 !== undefined ? config.iso_8859_1 : false;
     const { onError = console.error } = config;
 
     config.providers.forEach((item) => {
@@ -99,7 +96,7 @@ export class SocialAuthService {
             loginStatusPromises.push(promise);
             promise
               .then((user: SocialUser) => {
-                this.setUser(user, this.iso_8859_1, key);
+                this.setUser(user, key);
                 loggedIn = true;
               })
               .catch(console.debug);
@@ -116,7 +113,7 @@ export class SocialAuthService {
           if (isObservable(provider.changeUser)) {
             provider.changeUser.subscribe((user) => {
               this._ngZone.run(() => {
-                this.setUser(user, this.iso_8859_1, key);
+                this.setUser(user, key);
               });
             });
           }
@@ -158,7 +155,7 @@ export class SocialAuthService {
             providerObject
               .refreshToken()
               .then((user) => {
-                this.setUser(user, this.iso_8859_1, providerId);
+                this.setUser(user, providerId);
                 resolve();
               })
               .catch((err) => {
@@ -206,7 +203,7 @@ export class SocialAuthService {
           providerObject
             .signIn(signInOptions)
             .then((user: SocialUser) => {
-              this.setUser(user, this.iso_8859_1, providerId);
+              this.setUser(user, providerId);
               resolve(user);
             })
             .catch((err) => {
@@ -239,7 +236,7 @@ export class SocialAuthService {
             .signOut(revoke)
             .then(() => {
               resolve();
-              this.setUser(null, false);
+              this.setUser(null);
             })
             .catch((err) => {
               reject(err);
@@ -251,37 +248,10 @@ export class SocialAuthService {
     });
   }
 
-  private setUser(user: SocialUser | null, iso_8859_1: boolean, id?: string) {
+  private setUser(user: SocialUser | null, id?: string) {
     if (user && id) user.provider = id;
-
-    if (iso_8859_1) {
-      user.firstName = decodeURIComponent(this.escape(user.firstName));
-      user.lastName = decodeURIComponent(this.escape(user.lastName));
-      user.name = decodeURIComponent(this.escape(user.name))
-    }
 
     this._user = user;
     this._authState.next(user);
-  }
-
-  private escape(str: string) {
-    var allowed = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@*_+-./,';
-    var R = '', k = 0, S, chr, ord;
-    while (k < str.length) {
-      chr = str[k];
-      if (allowed.indexOf(chr) != -1) {
-        S = chr;
-      } else {
-        ord = str.charCodeAt(k);
-        if (ord < 256) {
-          S = '%' + ("00" + ord.toString(16)).toUpperCase().slice(-2);
-        } else {
-          S = '%u' + ("0000" + ord.toString(16)).toUpperCase().slice(-4);
-        }
-      }
-      R += S;
-      k++;
-    }
-    return R;
   }
 }

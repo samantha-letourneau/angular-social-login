@@ -109,7 +109,8 @@ export class MicrosoftLoginProvider extends BaseLoginProvider {
 
   constructor(
     private clientId: string,
-    initOptions?: MicrosoftOptions
+    initOptions?: MicrosoftOptions,
+    
   ) {
     super();
 
@@ -163,7 +164,7 @@ export class MicrosoftLoginProvider extends BaseLoginProvider {
               let user: SocialUser = new SocialUser();
               user.provider = MicrosoftLoginProvider.PROVIDER_ID;
               user.id = loginResponse.idToken;
-              user.authToken = loginResponse.accessToken;
+              user.accessToken = loginResponse.accessToken;
               user.name = loginResponse.idTokenClaims.name;
               user.email = loginResponse.account.username;
               user.idToken = loginResponse.idToken;
@@ -180,9 +181,9 @@ export class MicrosoftLoginProvider extends BaseLoginProvider {
           }
         }
       };
-
+      
       //Microsoft Graph ME Endpoint: https://docs.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0&tabs=http
-      meRequest.open('GET', 'https://graph.microsoft.com/v1.0/me');
+      meRequest.open('GET', `https://graph.microsoft.com/v1.0/me`);
       meRequest.setRequestHeader('Authorization', `Bearer ${loginResponse.accessToken}`);
       try {
         meRequest.send();

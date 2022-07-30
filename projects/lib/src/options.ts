@@ -48,42 +48,21 @@ export class GoogleSigninButtonOptions {
     public Width?: string;
 }
 
-export enum fbLayout {
-    Default = "default",
-    Rounded = "rounded"
-}
-
-export enum fbLabel {
-    LoginWith = "login_with",
-    ContinueWith = "continue_with"
-}
-
-export class FacebookSigninButtonOptions {
-    constructor() { }
-    /** Button shape */
-    public Layout?: fbLayout;
-    /** Button text */
-    public Label?: fbLabel;
-    /** Button size */
-    public Size?: ButtonSize;
-    /** Activate the Logout button */
-    public ActivateLogout?: boolean;
-    /** Include the profile name and photo the user is logged onto Facebook */
-    public IncludeProfileNameIfAny?: boolean;
-    /** Button width */
-    public Width? : string;
-}
-
-export enum msShape {
+export enum Shape {
     Rectangular = "rectangular",
     Pill = "pill"
 }
 
-export class MicrosoftSigninButtonOptions {
-    constructor() {}
+export class SocialSigninButtonOptions {
+    public Provider?: Provider;
     /** Button text */
     public Label?: string;
     /** Button shape */
-    public Shape?: msShape;
+    public Shape?: Shape;
     public Width?: string;
+}
+
+export enum Provider {
+    Facebook = 1,
+    Microsoft = 2
 }

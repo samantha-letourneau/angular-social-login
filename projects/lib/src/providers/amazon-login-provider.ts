@@ -87,7 +87,7 @@ export class AmazonLoginProvider extends BaseLoginProvider {
               user.id = response.profile.CustomerId;
               user.name = response.profile.Name;
               user.email = response.profile.PrimaryEmail;
-              user.authToken = authResponse.access_token;
+              user.accessToken = authResponse.access_token;
               user.response = response.profile;
 
               this.persistToken(authResponse.access_token);
