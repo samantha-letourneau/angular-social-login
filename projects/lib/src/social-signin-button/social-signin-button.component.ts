@@ -8,7 +8,7 @@ import { SocialAuthService } from '../socialauth.service';
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[social-signin-button]',
-    template: `<div id="svgContainer" (click)="signIn(this.options.Provider)" 
+    template: `<div id="svgContainer" (click)="signIn(this.options.Provider, this.options.ManageClickEvent, this.options.signInOptions)"
     [style.width]="this.options.Width"
     [class.pill] = "this.options.Shape === shape.Pill">
                 <div id="svgInner">
@@ -38,14 +38,19 @@ export class SocialSigninButtonComponent implements OnInit {
 
         if (!this.options?.Shape)
             this.options.Shape = Shape.Rectangular;
+
+        if (!this.options?.ManageClickEvent)
+            this.options.ManageClickEvent = false;
     }
 
-    signIn(provider: Provider) {
-        if (provider == this.provider.Facebook) {
-            this.authService.signIn(FacebookLoginProvider.PROVIDER_ID, { httpClient: this.httpClient });
-        }
-        else {
-            this.authService.signIn(MicrosoftLoginProvider.PROVIDER_ID);
+    signIn(provider: Provider, manageClickEvent: boolean, signInOptions: object) {
+        if (!manageClickEvent) {
+            if (provider == this.provider.Facebook) {
+                this.authService.signIn(FacebookLoginProvider.PROVIDER_ID, signInOptions);
+            }
+            else {
+                this.authService.signIn(MicrosoftLoginProvider.PROVIDER_ID, signInOptions);
+            }
         }
     }
 }

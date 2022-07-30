@@ -1,6 +1,6 @@
 # Angular Social Login
 
-@performweb/ng-social-login is forked from @abacritt/angularx-social-login and this doc is not updated. 
+@performweb/ng-social-login is forked from @abacritt/angularx-social-login and this doc is not updated. Documentation will be coming eventually. Thanks.
 
 Meanwhile, I make this librairy better to get Facebook, Google and Microsoft works with directives and options to get many login buttons styles.
 

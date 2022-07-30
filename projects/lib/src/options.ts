@@ -60,6 +60,9 @@ export class SocialSigninButtonOptions {
     /** Button shape */
     public Shape?: Shape;
     public Width?: string;
+    /** False to use click event internally (will trigger the login process). True to deactivate (you must add (click)="signIn()") event.  */
+    public ManageClickEvent? = false;
+    public signInOptions?: object
 }
 
 export enum Provider {

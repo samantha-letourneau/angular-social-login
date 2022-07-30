@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, Injector, NgZone, Type } from '@angular/core';
 import { AsyncSubject, isObservable, Observable, ReplaySubject } from 'rxjs';
 import { LoginProvider } from './entities/login-provider';
@@ -57,7 +58,8 @@ export class SocialAuthService {
     @Inject('SocialAuthServiceConfig')
     config: SocialAuthServiceConfig | Promise<SocialAuthServiceConfig>,
     private readonly _ngZone: NgZone,
-    private readonly _injector: Injector
+    private readonly _injector: Injector,
+    private readonly httpClient: HttpClient
   ) {
     if (config instanceof Promise) {
       config.then((config: SocialAuthServiceConfig) => {
@@ -201,7 +203,7 @@ export class SocialAuthService {
         let providerObject = this.providers.get(providerId);
         if (providerObject) {
           providerObject
-            .signIn(signInOptions)
+            .signIn(signInOptions, this.httpClient)
             .then((user: SocialUser) => {
               this.setUser(user, providerId);
               resolve(user);

@@ -8,10 +8,16 @@ import { DemoComponent } from './demo/demo.component';
 import { SocialLoginModule } from 'projects/lib/src/sociallogin.module';
 import { FacebookLoginProvider, GoogleLoginProvider, MicrosoftLoginProvider, SocialAuthServiceConfig, VKLoginProvider } from 'projects/lib/src/public-api';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, DemoComponent],
-  imports: [BrowserModule, FormsModule, SocialLoginModule, AppRoutingModule],
+  imports: [BrowserModule, 
+    FormsModule, 
+    SocialLoginModule, 
+    AppRoutingModule, 
+    HttpClientModule
+  ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',

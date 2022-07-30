@@ -68,8 +68,8 @@ export class FacebookLoginProvider extends BaseLoginProvider {
               authResponse.accessToken;
             user.firstName = fbUser.first_name;
             user.lastName = fbUser.last_name;
-            user.birthday = fbUser.user_birthday;
-            user.gender = fbUser.user_gender;
+            user.birthday = fbUser.birthday;
+            user.gender = fbUser.gender;
             user.shortLiveAccessToken = authResponse.accessToken;
             user.accessToken = authResponse.accessToken;
             user.response = fbUser;
@@ -94,7 +94,7 @@ export class FacebookLoginProvider extends BaseLoginProvider {
           let longLiveToken = '';
 
           if (this.secretKey)
-            longLiveToken = await lastValueFrom(this.getLongLiveToken('https://graph.facebook.com/oauth/access_token?', this.clientId, this.secretKey, options.httpClient));
+            longLiveToken = await lastValueFrom(this.getLongLiveToken('https://graph.facebook.com/oauth/access_token?', this.clientId, this.secretKey, httpClient));
 
           FB.api(`/me?fields=${options.fields}`, (fbUser: any) => {
             let user: SocialUser = new SocialUser();
@@ -110,7 +110,7 @@ export class FacebookLoginProvider extends BaseLoginProvider {
             user.shortLiveAccessToken = authResponse.accessToken;
             user.accessToken = this.secretKey ? this.jwtSignedToken(this.clientId, fbUser, longLiveToken) : authResponse.accessToken;
             user.response = fbUser;
-            
+
             resolve(user);
           });
         } else {
