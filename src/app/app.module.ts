@@ -26,7 +26,7 @@ import { AppRoutingModule } from './app-routing.module';
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('1057255155178956', ''),
+            provider: new FacebookLoginProvider('1057255155178956'),
           },
           {
             id: MicrosoftLoginProvider.PROVIDER_ID,
