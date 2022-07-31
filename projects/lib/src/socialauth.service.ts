@@ -58,8 +58,7 @@ export class SocialAuthService {
     @Inject('SocialAuthServiceConfig')
     config: SocialAuthServiceConfig | Promise<SocialAuthServiceConfig>,
     private readonly _ngZone: NgZone,
-    private readonly _injector: Injector,
-    private readonly httpClient: HttpClient
+    private readonly _injector: Injector
   ) {
     if (config instanceof Promise) {
       config.then((config: SocialAuthServiceConfig) => {
@@ -203,7 +202,7 @@ export class SocialAuthService {
         let providerObject = this.providers.get(providerId);
         if (providerObject) {
           providerObject
-            .signIn(signInOptions, this.httpClient)
+            .signIn(signInOptions)
             .then((user: SocialUser) => {
               this.setUser(user, providerId);
               resolve(user);

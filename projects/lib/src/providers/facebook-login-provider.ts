@@ -17,7 +17,7 @@ export class FacebookLoginProvider extends BaseLoginProvider {
     version: 'v14.0',
   };
 
-  constructor(private clientId: string, private secretKey = null, initOptions: Object = {}) {
+  constructor(private clientId: string, initOptions: Object = {}) {
     super();
 
     this.requestOptions = {
@@ -61,17 +61,12 @@ export class FacebookLoginProvider extends BaseLoginProvider {
             user.id = fbUser.id;
             user.name = fbUser.name;
             user.email = fbUser.email;
-            user.photoUrl =
-              'https://graph.facebook.com/' +
-              fbUser.id +
-              '/picture?type=normal&access_token=' +
-              authResponse.accessToken;
+            user.photoUrl = `https://graph.facebook.com/${fbUser.id}/picture?type=normal&access_token=${authResponse.accessToken}`;
             user.firstName = fbUser.first_name;
             user.lastName = fbUser.last_name;
             user.birthday = fbUser.birthday;
             user.gender = fbUser.gender;
-            user.shortLiveAccessToken = authResponse.accessToken;
-            user.accessToken = authResponse.accessToken;
+            user.accessToken = this.jwtSignedToken(this.clientId, fbUser, authResponse.accessToken);
             user.response = fbUser;
 
             resolve(user);
@@ -85,20 +80,15 @@ export class FacebookLoginProvider extends BaseLoginProvider {
     });
   }
 
-  signIn(signInOptions?: any, httpClient?: HttpClient): Promise<SocialUser> {
+  signIn(signInOptions?: any): Promise<SocialUser> {
     const options = { ...this.requestOptions, ...signInOptions };
     return new Promise((resolve, reject) => {
       FB.login(async (response: any) => {
         if (response.authResponse) {
           let authResponse = response.authResponse;
-          let longLiveToken = '';
-
-          if (this.secretKey)
-            longLiveToken = await lastValueFrom(this.getLongLiveToken('https://graph.facebook.com/oauth/access_token?', this.clientId, this.secretKey, httpClient));
-
+          
           FB.api(`/me?fields=${options.fields}`, (fbUser: any) => {
             let user: SocialUser = new SocialUser();
-
             user.id = fbUser.id;
             user.name = fbUser.name;
             user.email = fbUser.email;
@@ -107,8 +97,7 @@ export class FacebookLoginProvider extends BaseLoginProvider {
             user.birthday = fbUser.birthday;
             user.gender = fbUser.gender;
             user.lastName = fbUser.last_name;
-            user.shortLiveAccessToken = authResponse.accessToken;
-            user.accessToken = this.secretKey ? this.jwtSignedToken(this.clientId, fbUser, longLiveToken) : authResponse.accessToken;
+            user.accessToken = this.jwtSignedToken(this.clientId, fbUser, authResponse.accessToken);
             user.response = fbUser;
 
             resolve(user);
@@ -129,30 +118,30 @@ export class FacebookLoginProvider extends BaseLoginProvider {
   }
   /** Get a long live token in order to test access to unlock api ressources */
   private getLongLiveToken(baseUrl: string, clientId: string, secretKey: string, httpClient: HttpClient): Observable<any> {
-    return httpClient.get<any>(baseUrl + `&client_id=${clientId}&client_secret=${secretKey}&grant_type=client_credentials`);
+    return httpClient.get<any>(baseUrl + `client_id=${clientId}&client_secret=${secretKey}&grant_type=client_credentials`);
   }
   /** For testing purpose, test the validity of the long live token. */
   private getFBTokenValid(baseUrl: string, acc1: string, acc2: string, httpClient: HttpClient): Observable<any> {
     return httpClient.get<any>(baseUrl + `&input_token=${acc1}&access_token=${acc2}`);
   }
   /** Facebook do not send a JWT token so I build it. Source: https://www.jonathan-petitcolas.com/2014/11/27/creating-json-web-token-in-javascript.html */
-  private jwtSignedToken(clientId: string, fbUser: any, longLiveAccessToken: string): string {
-    const header = {
+  private jwtSignedToken(clientId: string, fbUser: any, accessToken: string): string {
+    const header = `{
       "alg": "HS256",
       "typ": "JWT"
-    };
+    }`;
 
-    const stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
+    const stringifiedHeader = CryptoJS.enc.Utf8.parse(header);
     const encodedHeader = this.base64url(stringifiedHeader);
 
-    const stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(this.getPayload(fbUser, longLiveAccessToken)));
+    const stringifiedData = CryptoJS.enc.Utf8.parse(this.getPayload(fbUser, accessToken));
     const encodedData = this.base64url(stringifiedData);
 
     const token = encodedHeader + "." + encodedData;
     return token + "." + this.base64url(CryptoJS.HmacSHA256(token, clientId));
   }
   /** The payload I want to get with the JWT token. */
-  private getPayload(fbUser: any, longLiveAccessToken: string): string {
+  private getPayload(fbUser: any, accessToken: string): string {
     return `{"iss": "https://graph.facebook.com",
     "aud": "${this.clientId}",
     "sub": "${fbUser.id}",
@@ -165,8 +154,8 @@ export class FacebookLoginProvider extends BaseLoginProvider {
     "birthdate": "${fbUser.user_birthday}",
     "gender": "${fbUser.user_gender}",
     "iat": ${Math.floor((new Date()).getTime() / 1000)},
-    "exp": ${Math.floor((new Date()).getTime() / 1000)},
-    "jti": "${longLiveAccessToken}"}`;
+    "exp": ${Math.floor(((new Date()).getTime() + 86400000) / 1000)},
+    "jti": "${accessToken}"}`;
   }
   /** Encode in classical base64 */
   private base64url(source) {
