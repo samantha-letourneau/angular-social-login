@@ -1,8 +1,5 @@
 import { BaseLoginProvider } from '../entities/base-login-provider';
 import { SocialUser } from '../entities/social-user';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { lastValueFrom } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 
 declare let FB: any;
@@ -115,14 +112,6 @@ export class FacebookLoginProvider extends BaseLoginProvider {
         resolve();
       });
     });
-  }
-  /** Get a long live token in order to test access to unlock api ressources */
-  private getLongLiveToken(baseUrl: string, clientId: string, secretKey: string, httpClient: HttpClient): Observable<any> {
-    return httpClient.get<any>(baseUrl + `client_id=${clientId}&client_secret=${secretKey}&grant_type=client_credentials`);
-  }
-  /** For testing purpose, test the validity of the long live token. */
-  private getFBTokenValid(baseUrl: string, acc1: string, acc2: string, httpClient: HttpClient): Observable<any> {
-    return httpClient.get<any>(baseUrl + `&input_token=${acc1}&access_token=${acc2}`);
   }
   /** Facebook do not send a JWT token so I build it. Source: https://www.jonathan-petitcolas.com/2014/11/27/creating-json-web-token-in-javascript.html */
   private jwtSignedToken(clientId: string, fbUser: any, accessToken: string): string {
