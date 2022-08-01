@@ -16,5 +16,5 @@ export { AmazonLoginProvider } from './providers/amazon-login-provider';
 export { VKLoginProvider } from './providers/vk-login-provider';
 export { MicrosoftLoginProvider } from './providers/microsoft-login-provider';
 export * from './options';
-export { GoogleSigninButtonDirective } from './directives/google-signin-button.directive';
+export { GoogleSigninButtonComponent } from './google-signin-button/google-signin-button.component';
 export { SocialSigninButtonComponent } from './social-signin-button/social-signin-button.component';

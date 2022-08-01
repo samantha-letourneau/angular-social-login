@@ -7,15 +7,15 @@ import {
 import { CommonModule } from '@angular/common';
 
 import { SocialAuthService, SocialAuthServiceConfig } from './socialauth.service';
-import { GoogleSigninButtonDirective } from './directives/google-signin-button.directive';
 import { SocialSigninButtonComponent } from './social-signin-button/social-signin-button.component';
 import { HttpClientModule } from '@angular/common/http';
+import { GoogleSigninButtonComponent } from './google-signin-button/google-signin-button.component';
 
 /**
  * The main module of ng-social-login library.
  */
 @NgModule({
-  declarations: [SocialSigninButtonComponent, GoogleSigninButtonDirective],
+  declarations: [SocialSigninButtonComponent, GoogleSigninButtonComponent],
   imports: [
     CommonModule,
     HttpClientModule
@@ -23,7 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     SocialAuthService
   ],
-  exports: [SocialSigninButtonComponent, GoogleSigninButtonDirective]
+  exports: [SocialSigninButtonComponent, GoogleSigninButtonComponent]
 })
 export class SocialLoginModule {
   public static initialize(config: SocialAuthServiceConfig): ModuleWithProviders<SocialLoginModule> {

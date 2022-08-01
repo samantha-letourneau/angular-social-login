@@ -13,6 +13,7 @@ import {
 export class DemoComponent implements OnInit {
   user: SocialUser | undefined;
   GoogleLoginProvider = GoogleLoginProvider;
+  
   gOptions : GoogleSigninButtonOptions = {
     Label: gLabel.SigninWith,
     Shape: gShape.Pill,
